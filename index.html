@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyHub - Materiais de Estudo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">S</div>
+      <span>StudyHub</span>
+    </div>
+
+    <div class="header-actions">
+      <button class="notification">🔔</button>
+      <div class="avatar">JV</div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="welcome">
+      <div>
+        <span class="tag">CENTRO DE ESTUDOS</span>
+        <h1>Olá, João! 👋</h1>
+        <p>Organize seus materiais e continue sua preparação para o vestibular.</p>
+      </div>
+
+      <button class="add-button" onclick="openModal()">
+        <span>+</span>
+        Adicionar material
+      </button>
+    </section>
+
+    <section class="search-area">
+      <div class="search-box">
+        <span>🔎</span>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar materiais..."
+          oninput="searchMaterials()"
+        >
+      </div>
+    </section>
+
+    <section class="categories">
+
+      <button class="category active" onclick="filterMaterials('todos', this)">
+        <span>📚</span>
+        <strong>Todos</strong>
+        <small>12 materiais</small>
+      </button>
+
+      <button class="category" onclick="filterMaterials('pdf', this)">
+        <span>📄</span>
+        <strong>PDFs</strong>
+        <small>4 materiais</small>
+      </button>
+
+      <button class="category" onclick="filterMaterials('video', this)">
+        <span>▶️</span>
+        <strong>Vídeos</strong>
+        <small>3 materiais</small>
+      </button>
+
+      <button class="category" onclick="filterMaterials('foto', this)">
+        <span>🖼️</span>
+        <strong>Fotos</strong>
+        <small>2 materiais</small>
+      </button>
+
+      <button class="category" onclick="filterMaterials('anotacao', this)">
+        <span>📝</span>
+        <strong>Anotações</strong>
+        <small>3 materiais</small>
+      </button>
+
+    </section>
+
+    <section class="section-title">
+      <div>
+        <h2>Materiais por tema</h2>
+        <p>Encontre tudo o que precisa para seus estudos.</p>
+      </div>
+
+      <select id="sortSelect" onchange="sortMaterials()">
+        <option value="recent">Mais recentes</option>
+        <option value="name">Nome</option>
+      </select>
+    </section>
+
+    <section class="materials-grid" id="materialsGrid">
+
+      <article class="material-card" data-type="pdf" data-name="Aula de Genética">
+        <div class="card-header">
+          <div class="subject-icon biology">🧬</div>
+          <span class="type pdf">PDF</span>
+        </div>
+
+        <h3>Aula de Genética</h3>
+        <p class="subject">Biologia</p>
+
+        <div class="card-info">
+          <span>📄 24 páginas</span>
+          <span>🕐 Hoje</span>
+        </div>
+
+        <button class="access-button" onclick="accessMaterial('Aula de Genética')">
+          Acessar material →
+        </button>
+      </article>
+
+      <article class="material-card" data-type="video" data-name="Revolução Industrial">
+        <div class="card-header">
+          <div class="subject-icon history">🏭</div>
+          <span class="type video">VÍDEO</span>
+        </div>
+
+        <h3>Revolução Industrial</h3>
+        <p class="subject">História</p>
+
+        <div class="card-info">
+          <span>▶️ 18:32 min</span>
+          <span>🕐 Ontem</span>
+        </div>
+
+        <button class="access-button" onclick="accessMaterial('Revolução Industrial')">
+          Assistir vídeo →
+        </button>
+      </article>
+
+      <article class="material-card" data-type="foto" data-name="Fórmulas de Física">
+        <div class="card-header">
+          <div class="subject-icon physics">⚡</div>
+          <span class="type photo">FOTO</span>
+        </div>
+
+        <h3>Fórmulas de Física</h3>
+        <p class="subject">Física</p>
+
+        <div class="card-info">
+          <span>🖼️ 6 imagens</span>
+          <span>🕐 2 dias</span>
+        </div>
+
+        <button class="access-button" onclick="accessMaterial('Fórmulas de Física')">
+          Visualizar →
+        </button>
+      </article>
+
+      <article class="material-card" data-type="anotacao" data-name="Resumo de Sociologia">
+        <div class="card-header">
+          <div class="subject-icon sociology">💭</div>
+          <span class="type note">ANOTAÇÃO</span>
+        </div>
+
+        <h3>Resumo de Sociologia</h3>
+        <p class="subject">Sociologia</p>
+
+        <div class="card-info">
+          <span>📝 8 tópicos</span>
+          <span>🕐 3 dias</span>
+        </div>
+
+        <button class="access-button" onclick="accessMaterial('Resumo de Sociologia')">
+          Ler anotação →
+        </button>
+      </article>
+
+      <article class="material-card" data-type="pdf" data-name="Funções Matemáticas">
+        <div class="card-header">
+          <div class="subject-icon math">📐</div>
+          <span class="type pdf">PDF</span>
+        </div>
+
+        <h3>Funções Matemáticas</h3>
+        <p class="subject">Matemática</p>
+
+        <div class="card-info">
+          <span>📄 32 páginas</span>
+          <span>🕐 4 dias</span>
+        </div>
+
+        <button class="access-button" onclick="accessMaterial('Funções Matemáticas')">
+          Acessar material →
+        </button>
+      </article>
+
+      <article class="material-card" data-type="video" data-name="Redação Nota 1000">
+        <div class="card-header">
+          <div class="subject-icon writing">✍️</div>
+          <span class="type video">VÍDEO</span>
+        </div>
+
+        <h3>Redação Nota 1000</h3>
+        <p class="subject">Português</p>
+
+        <div class="card-info">
+          <span>▶️ 25:40 min</span>
+          <span>🕐 5 dias</span>
+        </div>
+
+        <button class="access-button" onclick="accessMaterial('Redação Nota 1000')">
+          Assistir vídeo →
+        </button>
+      </article>
+
+    </section>
+
+    <div class="empty-state" id="emptyState">
+      <span>🔍</span>
+      <h3>Nenhum material encontrado</h3>
+      <p>Tente pesquisar por outro termo.</p>
+    </div>
+
+  </main>
+
+  <!-- Modal para adicionar material -->
+  <div class="modal-overlay" id="modal">
+
+    <div class="modal">
+
+      <button class="close-modal" onclick="closeModal()">×</button>
+
+      <h2>Adicionar material</h2>
+      <p>Cadastre um novo material de estudo.</p>
+
+      <form id="materialForm" onsubmit="addMaterial(event)">
+
+        <label>
+          Nome do material
+          <input type="text" id="materialName" required placeholder="Ex: Literatura Brasileira">
+        </label>
+
+        <label>
+          Matéria
+          <input type="text" id="materialSubject" required placeholder="Ex: Português">
+        </label>
+
+        <label>
+          Tipo
+          <select id="materialType">
+            <option value="pdf">PDF</option>
+            <option value="video">Vídeo</option>
+            <option value="foto">Foto</option>
+            <option value="anotacao">Anotação</option>
+          </select>
+        </label>
+
+        <button class="save-button" type="submit">
+          Salvar material
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
